@@ -7,7 +7,7 @@ void allocate_list(LIST **list, int count)
       return;
    }
 
-   *list = (LIST*)malloc(sizeof(LIST));
+   *list = (LIST*)calloc(1, sizeof(LIST));
    allocate_list(&((*list)->next), --count);
 
 }
