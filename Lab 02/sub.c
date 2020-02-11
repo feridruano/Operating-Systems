@@ -35,6 +35,9 @@ void help() {
 }
 
 void error(int type) {
+    fclose(stdin);
+    fclose(stdout);
+    printf("hello");
     switch (type) {
         case 0:
             puts("ERROR: Missing Arguments.");
@@ -44,19 +47,20 @@ void error(int type) {
             break;
         case 2:
             puts("ERROR: Extraneous replacement characters");
-            break;
+            return;
     }
     exit(2);
 }
 
 int main(int argc, char *args[]) {
-    int fromCharIndex = 0;
-    int toCharIndex = 0;
+    int fromCharIndex = -1;
+    int toCharIndex = -1;
 
     // None or help command
     if (argc == 1 || (argc == 2 && (strcmp(args[1], "-h") == 0)))
         help();
     else {
+        // Check commands
         for (int index = 1; index < argc; ++index) {
 
             // Record position or enable command
@@ -76,11 +80,15 @@ int main(int argc, char *args[]) {
             }
         }
 
+        // Missing replacement arguments check
+        if (fromCharIndex == -1 || toCharIndex == -1)
+            error(0);
+
         // Lengths of replacement characters
         unsigned int numOfFromChars = strlen(args[fromCharIndex]);
         unsigned int numOfToChars = strlen(args[toCharIndex]);
 
-        // Replacement character checks
+        // Equal number of replacement character checks
         if (numOfFromChars > numOfToChars)
             error(1);
 
@@ -88,7 +96,7 @@ int main(int argc, char *args[]) {
             error(2);
 
         char getChar;
-        int swap = 0;
+        int swap = 0; // A character has been swapped flag
         unsigned int length = strlen(args[fromCharIndex]);
 
         // Copy or replace characters
