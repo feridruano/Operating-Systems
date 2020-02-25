@@ -1,0 +1,11 @@
+
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 04
+* Date: 02/18/2020
+**/
+
+Message queue /MONITOR removed.
+mq_send (node.c): Bad file descriptor
+mq_send (node.c): Bad file descriptor
+mq_send (node.c): Bad file descriptor
