@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+project(cpuScheduler VERSION 0.0.1 LANGUAGES C)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_FILE_OFFSET_BITS=64")
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wall --pedantic -g -O0 -D_DEBUG")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake" ${CMAKE_MODULE_PATH})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
+set(CMAKE_BUILD_TYPE Debug)
+
+include_directories(${PROJECT_SOURCE_DIR}/inc)
+file(GLOB mainSources ${CMAKE_SOURCE_DIR}/src/*.c)
+file(GLOB lListSources ${CMAKE_SOURCE_DIR}/src/llist/*.c)
+file(GLOB arraySources ${CMAKE_SOURCE_DIR}/src/array/*.c)
+add_executable(cpuSchedulerL ${mainSources} ${lListSources})
+add_executable(cpuSchedulerA ${mainSources} ${arraySources})
