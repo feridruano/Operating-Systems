@@ -1,153 +1,210 @@
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 06
+* Date: 03/5/2020
+**/
+
 #include "processQueue.h"
 
-// the process table to hold all processes
-PROCESS *processTable;
+// The process table to hold all processes
+PROCESS* processTable;
 int processTableSize = 0;
 int processTableCapacity;
 
-// doubly-linked list to hold the ready queue
-PROCESS *readyQueueHead = NULL;
-PROCESS *readyQueueTail = NULL;
+// Doubly-linked list to hold the ready queue
+PROCESS* readyQueueHead = NULL;
+PROCESS* readyQueueTail = NULL;
 
 /***
- * constructor of the process table
+ * Constructor of the process table
  */
 void createProcessTable(int capacity)
 {
-    processTable = (PROCESS *) malloc(capacity * sizeof(PROCESS));
-    processTableCapacity = capacity;
+	processTable = (PROCESS*)malloc(capacity * sizeof(PROCESS));
+	processTableCapacity = capacity;
 }
 
 /***
- * constructor of the ready queue
+ * Constructor of the ready queue
  */
 void createReadyQueue(int capacity)
 {
-    readyQueueHead = NULL;
-    readyQueueTail = NULL;
+	readyQueueHead = NULL;
+	readyQueueTail = NULL;
 }
 
 /***
- * adds a process and expands the table if necessary
+ * Adds a process and expands the table if necessary
  */
 void addProcessToTable(PROCESS process)
 {
-    if (processTableSize >= processTableCapacity) //if array too small
-    {
-        processTableCapacity *= 2; //double capacity
-        processTable = (PROCESS *) realloc(processTable, processTableCapacity * sizeof(PROCESS));
-    }
-
-// TODO: complete
-
+	// Resize Process Table When Full
+	if (processTableSize >= processTableCapacity)
+	{
+		processTableCapacity *= 2; // Double Process Table Capacity
+		processTable = (PROCESS*)realloc(processTable, processTableCapacity * sizeof(PROCESS));
+	}
+	// TODO: Done
+	processTable[processTableSize++] = process;
 }
 
 /***
- * display the processes table
+ * Display the processes table
  */
 void displayProcessTable()
 {
-    printf("PROCESSES:\n\nName    \tEntry\tBurst\n");
-    for (int i = 0; i < processTableSize; i++)
-    {
-        printf("%-8s\t%3d   \t%3d   \n", processTable[i].name, processTable[i].entryTime, processTable[i].burstTime);
-    }
-    printf("\n");
+	printf("PROCESSES:\n\nName    \tEntry\tBurst\n");
+	for (int i = 0; i < processTableSize; i++)
+	{
+		printf("%-8s\t%3d   \t%3d   \n", processTable[i].name, processTable[i].entryTime, processTable[i].burstTime);
+	}
+	printf("\n");
 }
 
 /***
- * determines if any processes in the process table still need to execute
+ * Determines if any processes in the process table still need to execute
  */
 bool processesLeftToExecute()
 {
-// TODO: implement
-
-    return false; //return 0 if all processes are complete
+	// TODO: Done
+	int processIndex = 0;
+	while (processIndex < processTableSize)
+		if (processTable[processIndex++].burstTime != 0)
+			return true;
+	return false;
 }
 
 /***
- * adds any processes that arrive at the current time to ready queue
+ * Adds any processes that arrive at the current time to ready queue
  */
 void addArrivingProcessesToReadyQueue(int time)
 {
-// TODO: implement
+	// TODO: Done
+	PROCESS* process = &processTable[processTableSize];
+	if (process->entryTime == time)
+		addProcessToReadyQueue(&processTable[processTableSize++]);
 }
 
 /***
- * adds a process to the ready queue and expands it if necessary
+ * Adds a process to the ready queue and expands it if necessary
  */
-void addProcessToReadyQueue(PROCESS *process)
+void addProcessToReadyQueue(PROCESS* process)
 {
-// TODO: implement
+	// TODO: Done
+	if (NULL == readyQueueHead)
+	{
+		readyQueueHead = process;
+		readyQueueTail = process;
+	}
+	else
+	{
+		readyQueueTail->next = process;
+		process->previous = readyQueueTail;
+		readyQueueTail = process;
+	}
 }
 
 /***
- * removes a process from the ready queue and fills the "hole"
+ * Removes a process from the ready queue and fills the "hole"
  */
-void removeProcessFromReadyQueue(PROCESS *process)
+void removeProcessFromReadyQueue(PROCESS* process)
 {
-// TODO: implement
+// TODO: Done
+	// Empty Ready Queue or a Null Process
+	if (NULL == readyQueueHead || NULL == process)
+		return;
+	// Process is Head Node
+	if (readyQueueHead == process)
+		readyQueueHead = readyQueueHead->next;
+	// Process is Not Tail Node
+	if (NULL != process->next)
+		process->next->previous = process->previous;
+	// Process is Not Head Node
+	if (NULL != process->previous)
+		process->previous->next = process->next;
+	free(process);
 }
 
 /***
- * fetches the first process from the ready queue
+ * Fetches the first process from the ready queue
  */
-PROCESS *fetchFirstProcessFromReadyQueue()
+PROCESS* fetchFirstProcessFromReadyQueue()
 {
-// TODO: implement
-
-    return NULL;
+	// TODO: Done
+	return readyQueueHead;
 }
 
 /***
- * finds the shortest job in the ready queue
+ * Finds the shortest job in the ready queue
  */
-PROCESS *findShortestProcessInReadyQueue()
+PROCESS* findShortestProcessInReadyQueue()
 {
-// TODO: implement
-
-    return NULL;
+	// TODO: Done
+	PROCESS* processIter = readyQueueHead;
+	PROCESS* shortestProcess = readyQueueHead;
+	while (NULL != processIter)
+	{
+		if (processIter->burstTime == 0)
+		{
+			PROCESS* processIterNext = processIter->next;
+			removeProcessFromReadyQueue(processIter);
+			processIter = processIterNext;
+		}
+		else if (shortestProcess->burstTime < processIter->burstTime)
+		{
+			shortestProcess = processIter;
+			processIter = processIter->next;
+		}
+	}
+	return shortestProcess;
 }
 
 /***
- * displays the contents of the ready queue
+ * Displays the contents of the ready queue
  */
 void displayQueue()
 {
-    printf("QUEUE: ");
+	printf("QUEUE: ");
 
-    if (readyQueueHead == NULL)
-        printf("<empty>");
-    else
-    {
-        for (PROCESS *curr = readyQueueHead; curr != NULL; curr = curr->next)
-        {
-            printf("%s(%d) ", curr->name, curr->burstTime);
-        }
-    }
+	if (readyQueueHead == NULL)
+		printf("<empty>");
+	else
+	{
+		for (PROCESS* curr = readyQueueHead; curr != NULL; curr = curr->next)
+		{
+			printf("%s(%d) ", curr->name, curr->burstTime);
+		}
+	}
 }
 
 /***
- * calculates and prints the average wait time using information in the process table
+ * Calculates and prints the average wait time using information in the process table
  */
 void printAverageWaitTime()
 {
-    int i = 0;
-    double sum = 0;
-    for (i = 0; i < processTableSize; i++)
-    {
-        sum = sum + processTable[i].waitTime;
-        printf("Process %s Wait Time: %.2lf\n", processTable[i].name, (double) processTable[i].waitTime);
-    }
-    printf("Average Wait Time: %.2lf\n", (sum / (double) processTableSize));
+	int i = 0;
+	double sum = 0;
+	for (i = 0; i < processTableSize; i++)
+	{
+		sum = sum + processTable[i].waitTime;
+		printf("Process %s Wait Time: %.2lf\n", processTable[i].name, (double)processTable[i].waitTime);
+	}
+	printf("Average Wait Time: %.2lf\n", (sum / (double)processTableSize));
 }
 
 /***
- * clean up the process table
+ * Clean up the process table
  */
 void cleanUp()
 {
-// TODO: implement
+	// TODO: Done
+
+	if (NULL != readyQueueHead)
+		return;
+
+	for (int processIndex = 0; processIndex < processTableSize; ++processIndex)
+		free(&processTable[processIndex]);
+	free(processTable);
 }
 
 

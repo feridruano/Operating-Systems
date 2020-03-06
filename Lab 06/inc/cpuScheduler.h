@@ -18,6 +18,7 @@ typedef struct algorithmParams
     void (*step)(void *); // pointer to the step function we will call
     int quantum; // for RR
     int time; // current time tick
+    // Ignore TODOs
     // TODO: add totalWaitTime to the struct and use it to calculate the average
     // TODO: add totalNumberOfProcesses and use it to compute the average wait time
 } ALGORITHM_PARAMS;

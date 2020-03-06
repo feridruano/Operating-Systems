@@ -1,3 +1,9 @@
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 06
+* Date: 03/5/2020
+**/
+
 #include "cpuScheduler.h"
 
 static int quantum;
