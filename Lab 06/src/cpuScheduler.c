@@ -21,18 +21,18 @@ int main(int argc, char **argv)
         printf("Reading input from stdin.\n\n");
 #endif
 
-    int time = 0; // simulated time
+    int time = 0; // Simulated Time
 
     ALGORITHM_PARAMS parameters = {
             .cpu = NULL, .algorithm = "",
             .step = NULL, .quantum = 0,
             .time = 0
-    }; // simulation parameters
+    }; // Simulation Parameters
 
-    // read the algorithm type and time quantum if necessary
+    // Read the Algorithm Type and Time Quantum if Necessary
     scanf("%s", parameters.algorithm);
 
-    //check which algorithm was passed, set values accordingly
+    // Check which Algorithm was Passed, Set Values Accordingly
     if (strcmp(parameters.algorithm, "RR") == 0)
     {
         scanf("%d", &parameters.quantum);
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    scanf("\n"); // skip over the end of line marker
+    scanf("\n"); // Skip Over the End of Line Marker
 
     printf("\nALGORITHM: %s", parameters.algorithm);
     if (strcmp(parameters.algorithm, "RR") == 0)
@@ -144,7 +144,7 @@ void rrStep(void *param)
 }
 
 /***
- * fills the process table with processes from input
+ * Fills the Process Table with Processes from Input
  */
 int readProcessTable()
 {

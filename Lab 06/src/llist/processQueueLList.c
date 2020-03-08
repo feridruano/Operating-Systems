@@ -67,9 +67,9 @@ void displayProcessTable()
 bool processesLeftToExecute()
 {
 	// TODO: Done
-	int processIndex = 0;
-	while (processIndex < processTableSize)
-		if (processTable[processIndex++].burstTime != 0)
+	int processTableIndex = 0;
+	while (processTableIndex < processTableSize)
+		if (processTable[processTableIndex++].burstTime != 0)
 			return true;
 	return false;
 }
@@ -80,9 +80,9 @@ bool processesLeftToExecute()
 void addArrivingProcessesToReadyQueue(int time)
 {
 	// TODO: Done
-	PROCESS* process = &processTable[processTableSize];
-	if (process->entryTime == time)
-		addProcessToReadyQueue(&processTable[processTableSize++]);
+	for (int processIterIndex = 0; processIterIndex < processTableSize; ++processIterIndex)
+		if (processTable[processIterIndex].entryTime == time)
+			addProcessToReadyQueue(&processTable[processIterIndex]);
 }
 
 /***
@@ -110,19 +110,21 @@ void addProcessToReadyQueue(PROCESS* process)
 void removeProcessFromReadyQueue(PROCESS* process)
 {
 // TODO: Done
-	// Empty Ready Queue or a Null Process
-	if (NULL == readyQueueHead || NULL == process)
+	// Empty Ready Queue, Null Process, or Check Tail for Initialization Error
+	if (NULL == readyQueueHead || NULL == readyQueueTail || NULL == process)
 		return;
 	// Process is Head Node
 	if (readyQueueHead == process)
-		readyQueueHead = readyQueueHead->next;
+		readyQueueHead = process->next;
+	// Process is Tail Node
+	if (readyQueueTail == process)
+		readyQueueTail = process->previous;
 	// Process is Not Tail Node
 	if (NULL != process->next)
 		process->next->previous = process->previous;
 	// Process is Not Head Node
 	if (NULL != process->previous)
 		process->previous->next = process->next;
-	free(process);
 }
 
 /***
@@ -131,7 +133,19 @@ void removeProcessFromReadyQueue(PROCESS* process)
 PROCESS* fetchFirstProcessFromReadyQueue()
 {
 	// TODO: Done
-	return readyQueueHead;
+	PROCESS* processIter = readyQueueHead;
+
+	// Remove Terminated Processes and Return First Non-Terminated Process
+	while (NULL != processIter)
+	{
+		if (processIter->burstTime != 0)
+			break;
+
+		PROCESS* processIterNext = processIter->next;
+		removeProcessFromReadyQueue(processIter);
+		processIter = processIterNext;
+	}
+	return processIter;
 }
 
 /***
@@ -140,21 +154,25 @@ PROCESS* fetchFirstProcessFromReadyQueue()
 PROCESS* findShortestProcessInReadyQueue()
 {
 	// TODO: Done
+	// Traverse the Linked-List Twice (Not as efficient, but gets the job done)
 	PROCESS* processIter = readyQueueHead;
-	PROCESS* shortestProcess = readyQueueHead;
+
+	// Remove Terminated Processes
 	while (NULL != processIter)
 	{
 		if (processIter->burstTime == 0)
-		{
-			PROCESS* processIterNext = processIter->next;
 			removeProcessFromReadyQueue(processIter);
-			processIter = processIterNext;
-		}
-		else if (shortestProcess->burstTime < processIter->burstTime)
-		{
+		processIter = processIter->next;
+	}
+
+	// Find Shortest Process
+	processIter = readyQueueHead;
+	PROCESS* shortestProcess = readyQueueHead;
+	while (NULL != processIter)
+	{
+		if (shortestProcess->burstTime > processIter->burstTime)
 			shortestProcess = processIter;
-			processIter = processIter->next;
-		}
+		processIter = processIter->next;
 	}
 	return shortestProcess;
 }
@@ -198,10 +216,10 @@ void printAverageWaitTime()
 void cleanUp()
 {
 	// TODO: Done
-
+	// Empty Ready Queue
 	if (NULL != readyQueueHead)
 		return;
-
+	// Free Process Table's Array of PROCESS elements
 	for (int processIndex = 0; processIndex < processTableSize; ++processIndex)
 		free(&processTable[processIndex]);
 	free(processTable);
