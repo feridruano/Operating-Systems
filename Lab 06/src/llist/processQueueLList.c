@@ -20,8 +20,8 @@ PROCESS* readyQueueTail = NULL;
  */
 void createProcessTable(int capacity)
 {
-	processTable = (PROCESS*)malloc(capacity * sizeof(PROCESS));
-	processTableCapacity = capacity;
+    processTable = (PROCESS*)malloc(capacity * sizeof(PROCESS));
+    processTableCapacity = capacity;
 }
 
 /***
@@ -29,8 +29,8 @@ void createProcessTable(int capacity)
  */
 void createReadyQueue(int capacity)
 {
-	readyQueueHead = NULL;
-	readyQueueTail = NULL;
+    readyQueueHead = NULL;
+    readyQueueTail = NULL;
 }
 
 /***
@@ -38,14 +38,14 @@ void createReadyQueue(int capacity)
  */
 void addProcessToTable(PROCESS process)
 {
-	// Resize Process Table When Full
-	if (processTableSize >= processTableCapacity)
-	{
-		processTableCapacity *= 2; // Double Process Table Capacity
-		processTable = (PROCESS*)realloc(processTable, processTableCapacity * sizeof(PROCESS));
-	}
-	// TODO: Done
-	processTable[processTableSize++] = process;
+    // Resize Process Table When Full
+    if (processTableSize >= processTableCapacity)
+    {
+        processTableCapacity *= 2; // Double Process Table Capacity
+        processTable = (PROCESS*)realloc(processTable, processTableCapacity * sizeof(PROCESS));
+    }
+    // TODO: Done
+    processTable[processTableSize++] = process;
 }
 
 /***
@@ -53,12 +53,12 @@ void addProcessToTable(PROCESS process)
  */
 void displayProcessTable()
 {
-	printf("PROCESSES:\n\nName    \tEntry\tBurst\n");
-	for (int i = 0; i < processTableSize; i++)
-	{
-		printf("%-8s\t%3d   \t%3d   \n", processTable[i].name, processTable[i].entryTime, processTable[i].burstTime);
-	}
-	printf("\n");
+    printf("PROCESSES:\n\nName    \tEntry\tBurst\n");
+    for (int i = 0; i < processTableSize; i++)
+    {
+        printf("%-8s\t%3d   \t%3d   \n", processTable[i].name, processTable[i].entryTime, processTable[i].burstTime);
+    }
+    printf("\n");
 }
 
 /***
@@ -66,12 +66,12 @@ void displayProcessTable()
  */
 bool processesLeftToExecute()
 {
-	// TODO: Done
-	int processIndex = 0;
-	while (processIndex < processTableSize)
-		if (processTable[processIndex++].burstTime != 0)
-			return true;
-	return false;
+    // TODO: Done
+    int processIndex = 0;
+    while (processIndex < processTableSize)
+        if (processTable[processIndex++].burstTime != 0)
+            return true;
+    return false;
 }
 
 /***
@@ -79,10 +79,22 @@ bool processesLeftToExecute()
  */
 void addArrivingProcessesToReadyQueue(int time)
 {
-	// TODO: Done
-	PROCESS* process = &processTable[processTableSize];
-	if (process->entryTime == time)
-		addProcessToReadyQueue(&processTable[processTableSize++]);
+    // TODO: Done
+    for (int processTableIndex = 0; processTableIndex < processTableSize; ++processTableIndex) {
+        if (processTable[processTableIndex].entryTime == time)
+        {
+            if (NULL == readyQueueHead)
+            {
+                readyQueueHead = &processTable[processTableIndex];
+                readyQueueTail = &processTable[processTableIndex];
+            }
+            else {
+                readyQueueTail->next = &processTable[processTableIndex];
+                processTable[processTableIndex].previous = readyQueueTail;
+                readyQueueTail = &processTable[processTableIndex];
+            }
+        }
+    }
 }
 
 /***
@@ -90,18 +102,18 @@ void addArrivingProcessesToReadyQueue(int time)
  */
 void addProcessToReadyQueue(PROCESS* process)
 {
-	// TODO: Done
-	if (NULL == readyQueueHead)
-	{
-		readyQueueHead = process;
-		readyQueueTail = process;
-	}
-	else
-	{
-		readyQueueTail->next = process;
-		process->previous = readyQueueTail;
-		readyQueueTail = process;
-	}
+    // TODO: Done
+    if (NULL == readyQueueHead)
+    {
+        readyQueueHead = process;
+        readyQueueTail = process;
+    }
+    else
+    {
+        readyQueueTail->next = process;
+        process->previous = readyQueueTail;
+        readyQueueTail = process;
+    }
 }
 
 /***
@@ -110,19 +122,21 @@ void addProcessToReadyQueue(PROCESS* process)
 void removeProcessFromReadyQueue(PROCESS* process)
 {
 // TODO: Done
-	// Empty Ready Queue or a Null Process
-	if (NULL == readyQueueHead || NULL == process)
-		return;
-	// Process is Head Node
-	if (readyQueueHead == process)
-		readyQueueHead = readyQueueHead->next;
-	// Process is Not Tail Node
-	if (NULL != process->next)
-		process->next->previous = process->previous;
-	// Process is Not Head Node
-	if (NULL != process->previous)
-		process->previous->next = process->next;
-	free(process);
+    // Empty Ready Queue or a Null Process
+    if (NULL == readyQueueHead || NULL == readyQueueTail || NULL == process)
+        return;
+    // Process is Head Node
+    if (readyQueueHead == process)
+        readyQueueHead = process->next;
+    // Process is Tail Node
+    if (readyQueueTail == process)
+        readyQueueTail = process->previous;
+    // Process is Not Tail Node
+    if (NULL != process->next)
+        process->next->previous = process->previous;
+    // Process is Not Head Node
+    if (NULL != process->previous)
+        process->previous->next = process->next;
 }
 
 /***
@@ -130,8 +144,10 @@ void removeProcessFromReadyQueue(PROCESS* process)
  */
 PROCESS* fetchFirstProcessFromReadyQueue()
 {
-	// TODO: Done
-	return readyQueueHead;
+    // TODO: Done
+    PROCESS* process = readyQueueHead;
+    removeProcessFromReadyQueue(process);
+    return process;
 }
 
 /***
@@ -139,24 +155,19 @@ PROCESS* fetchFirstProcessFromReadyQueue()
  */
 PROCESS* findShortestProcessInReadyQueue()
 {
-	// TODO: Done
-	PROCESS* processIter = readyQueueHead;
-	PROCESS* shortestProcess = readyQueueHead;
-	while (NULL != processIter)
-	{
-		if (processIter->burstTime == 0)
-		{
-			PROCESS* processIterNext = processIter->next;
-			removeProcessFromReadyQueue(processIter);
-			processIter = processIterNext;
-		}
-		else if (shortestProcess->burstTime < processIter->burstTime)
-		{
-			shortestProcess = processIter;
-			processIter = processIter->next;
-		}
-	}
-	return shortestProcess;
+    // TODO: Done
+    PROCESS* processIter = readyQueueHead;
+    PROCESS* shortestProcess = readyQueueHead;
+    while (NULL != processIter)
+    {
+        if (shortestProcess->burstTime > processIter->burstTime)
+        {
+            shortestProcess = processIter;
+        }
+        processIter = processIter->next;
+    }
+    removeProcessFromReadyQueue(shortestProcess);
+    return shortestProcess;
 }
 
 /***
@@ -164,17 +175,17 @@ PROCESS* findShortestProcessInReadyQueue()
  */
 void displayQueue()
 {
-	printf("QUEUE: ");
+    printf("QUEUE: ");
 
-	if (readyQueueHead == NULL)
-		printf("<empty>");
-	else
-	{
-		for (PROCESS* curr = readyQueueHead; curr != NULL; curr = curr->next)
-		{
-			printf("%s(%d) ", curr->name, curr->burstTime);
-		}
-	}
+    if (readyQueueHead == NULL)
+        printf("<empty>");
+    else
+    {
+        for (PROCESS* curr = readyQueueHead; curr != NULL; curr = curr->next)
+        {
+            printf("%s(%d) ", curr->name, curr->burstTime);
+        }
+    }
 }
 
 /***
@@ -182,14 +193,14 @@ void displayQueue()
  */
 void printAverageWaitTime()
 {
-	int i = 0;
-	double sum = 0;
-	for (i = 0; i < processTableSize; i++)
-	{
-		sum = sum + processTable[i].waitTime;
-		printf("Process %s Wait Time: %.2lf\n", processTable[i].name, (double)processTable[i].waitTime);
-	}
-	printf("Average Wait Time: %.2lf\n", (sum / (double)processTableSize));
+    int i = 0;
+    double sum = 0;
+    for (i = 0; i < processTableSize; i++)
+    {
+        sum = sum + processTable[i].waitTime;
+        printf("Process %s Wait Time: %.2lf\n", processTable[i].name, (double)processTable[i].waitTime);
+    }
+    printf("Average Wait Time: %.2lf\n", (sum / (double)processTableSize));
 }
 
 /***
@@ -197,17 +208,6 @@ void printAverageWaitTime()
  */
 void cleanUp()
 {
-	// TODO: Done
-
-	if (NULL != readyQueueHead)
-		return;
-
-	for (int processIndex = 0; processIndex < processTableSize; ++processIndex)
-		free(&processTable[processIndex]);
-	free(processTable);
+    // TODO: Done
+    free(processTable);
 }
-
-
-
-
-

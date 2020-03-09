@@ -120,6 +120,15 @@ void sjfStep(void *param)
 {
 
 // TODO: implement
+    ALGORITHM_PARAMS *p = (ALGORITHM_PARAMS *) param;
+
+    //if the cpu has nothing currently executing
+    if (p->cpu == NULL || p->cpu->burstTime == 0)
+    {
+        p->cpu = findShortestProcessInReadyQueue(); //start executing the first process in the ready queue
+        if (p->cpu != NULL)
+            p->cpu->waitTime = p->time - p->cpu->entryTime; // update the wait time
+    }
 
 }
 
