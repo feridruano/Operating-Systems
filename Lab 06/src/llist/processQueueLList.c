@@ -137,6 +137,9 @@ void removeProcessFromReadyQueue(PROCESS* process)
     // Process is Not Head Node
     if (NULL != process->previous)
         process->previous->next = process->next;
+
+    process->next = NULL;
+    process->previous = NULL;
 }
 
 /***

@@ -139,7 +139,25 @@ void srtfStep(void *param)
 {
 
 // TODO: implement
+    ALGORITHM_PARAMS *p = (ALGORITHM_PARAMS *) param;
 
+    if (p->cpu == NULL || p->cpu->burstTime == 0)
+    {
+        p->cpu = findShortestProcessInReadyQueue(); //start executing the first process in the ready queue
+    } else {
+        PROCESS * shortestProcess = findShortestProcessInReadyQueue();
+        if (NULL != shortestProcess && shortestProcess->burstTime < p->cpu->burstTime) {
+            if(p->cpu->offTime > 0)
+                p->cpu->waitTime += p->time - p->cpu->offTime;
+            else if (p->cpu->offTime == 0)
+                p->cpu->offTime = p->time - p->cpu->waitTime;
+            addProcessToReadyQueue(p->cpu);
+            p->cpu = shortestProcess;
+        }
+        else {
+            addProcessToReadyQueue(shortestProcess);
+        }
+    }
 }
 
 /***
