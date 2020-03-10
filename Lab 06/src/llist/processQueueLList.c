@@ -93,11 +93,13 @@ void addProcessToReadyQueue(PROCESS* process)
 	// TODO: Done
 	if (NULL == readyQueueHead)
 	{
+		// Empty Linked-list
 		readyQueueHead = process;
 		readyQueueTail = process;
 	}
 	else
 	{
+		// Add to New Process to Tail
 		readyQueueTail->next = process;
 		process->previous = readyQueueTail;
 		readyQueueTail = process;
@@ -111,7 +113,7 @@ void removeProcessFromReadyQueue(PROCESS* process)
 {
 // TODO: Done
 	// Empty Ready Queue, Null Process, or Check Tail for Initialization Error
-	if (NULL == readyQueueHead || NULL == readyQueueTail || NULL == process)
+	if (NULL == readyQueueHead || NULL == process || NULL == readyQueueTail)
 		return;
 	// Process is Head Node
 	if (readyQueueHead == process)
@@ -125,6 +127,9 @@ void removeProcessFromReadyQueue(PROCESS* process)
 	// Process is Not Head Node
 	if (NULL != process->previous)
 		process->previous->next = process->next;
+	// NULL Process Node Pointers
+	process->previous = NULL;
+	process->next = NULL;
 }
 
 /***
@@ -134,17 +139,7 @@ PROCESS* fetchFirstProcessFromReadyQueue()
 {
 	// TODO: Done
 	PROCESS* processIter = readyQueueHead;
-
-	// Remove Terminated Processes and Return First Non-Terminated Process
-	while (NULL != processIter)
-	{
-		if (processIter->burstTime != 0)
-			break;
-
-		PROCESS* processIterNext = processIter->next;
-		removeProcessFromReadyQueue(processIter);
-		processIter = processIterNext;
-	}
+	removeProcessFromReadyQueue(processIter);
 	return processIter;
 }
 
@@ -154,19 +149,7 @@ PROCESS* fetchFirstProcessFromReadyQueue()
 PROCESS* findShortestProcessInReadyQueue()
 {
 	// TODO: Done
-	// Traverse the Linked-List Twice (Not as efficient, but gets the job done)
 	PROCESS* processIter = readyQueueHead;
-
-	// Remove Terminated Processes
-	while (NULL != processIter)
-	{
-		if (processIter->burstTime == 0)
-			removeProcessFromReadyQueue(processIter);
-		processIter = processIter->next;
-	}
-
-	// Find Shortest Process
-	processIter = readyQueueHead;
 	PROCESS* shortestProcess = readyQueueHead;
 	while (NULL != processIter)
 	{
@@ -216,12 +199,6 @@ void printAverageWaitTime()
 void cleanUp()
 {
 	// TODO: Done
-	// Empty Ready Queue
-	if (NULL != readyQueueHead)
-		return;
-	// Free Process Table's Array of PROCESS elements
-	for (int processIndex = 0; processIndex < processTableSize; ++processIndex)
-		free(&processTable[processIndex]);
 	free(processTable);
 }
 
