@@ -1,0 +1,519 @@
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 06
+* Date: 03/9/2020
+**/
+
+Script started on 2020-03-09 22:44:01-0700
+
+~/CLionProjects/Operating-Systems/Lab 06/cmake-build-debug/bin master*
+❯ ./cpuSchedulerL ../../input/my-RR.txt
+Reading input from file ../../input/my-RR.txts.
+
+
+ALGORITHM: RR  4
+
+PROCESSES:
+
+Name    	Entry	Burst
+P9      	  0   	 15   
+P7      	  2   	  6   
+P8      	 15   	  2   
+P6      	  6   	 13   
+P10     	 17   	  7   
+P1      	  0   	 15   
+P2      	  2   	  6   
+P3      	 25   	  2   
+P4      	  6   	  3   
+P5      	  7   	  7   
+P11     	 35   	  3   
+P12     	 12   	  4   
+P13     	  0   	  1   
+P14     	 12   	 32   
+
+SIMULATION:
+
+T0:
+CPU: P9(15)
+QUEUE: P1(15) P13(1) 
+
+T1:
+CPU: P9(14)
+QUEUE: P1(15) P13(1) 
+
+T2:
+CPU: P9(13)
+QUEUE: P1(15) P13(1) P7(6) P2(6) 
+
+T3:
+CPU: P9(12)
+QUEUE: P1(15) P13(1) P7(6) P2(6) 
+
+T4:
+CPU: P1(15)
+QUEUE: P13(1) P7(6) P2(6) P9(11) 
+
+T5:
+CPU: P1(14)
+QUEUE: P13(1) P7(6) P2(6) P9(11) 
+
+T6:
+CPU: P1(13)
+QUEUE: P13(1) P7(6) P2(6) P9(11) P6(13) P4(3) 
+
+T7:
+CPU: P1(12)
+QUEUE: P13(1) P7(6) P2(6) P9(11) P6(13) P4(3) P5(7) 
+
+T8:
+CPU: P13(1)
+QUEUE: P7(6) P2(6) P9(11) P6(13) P4(3) P5(7) P1(11) 
+
+T9:
+CPU: P7(6)
+QUEUE: P2(6) P9(11) P6(13) P4(3) P5(7) P1(11) 
+
+T10:
+CPU: P7(5)
+QUEUE: P2(6) P9(11) P6(13) P4(3) P5(7) P1(11) 
+
+T11:
+CPU: P7(4)
+QUEUE: P2(6) P9(11) P6(13) P4(3) P5(7) P1(11) 
+
+T12:
+CPU: P7(3)
+QUEUE: P2(6) P9(11) P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) 
+
+T13:
+CPU: P2(6)
+QUEUE: P9(11) P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) 
+
+T14:
+CPU: P2(5)
+QUEUE: P9(11) P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) 
+
+T15:
+CPU: P2(4)
+QUEUE: P9(11) P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) 
+
+T16:
+CPU: P2(3)
+QUEUE: P9(11) P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) 
+
+T17:
+CPU: P9(11)
+QUEUE: P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) 
+
+T18:
+CPU: P9(10)
+QUEUE: P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) 
+
+T19:
+CPU: P9(9)
+QUEUE: P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) 
+
+T20:
+CPU: P9(8)
+QUEUE: P6(13) P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) 
+
+T21:
+CPU: P6(13)
+QUEUE: P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) 
+
+T22:
+CPU: P6(12)
+QUEUE: P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) 
+
+T23:
+CPU: P6(11)
+QUEUE: P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) 
+
+T24:
+CPU: P6(10)
+QUEUE: P4(3) P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) 
+
+T25:
+CPU: P4(3)
+QUEUE: P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) 
+
+T26:
+CPU: P4(2)
+QUEUE: P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) 
+
+T27:
+CPU: P4(1)
+QUEUE: P5(7) P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) 
+
+T28:
+CPU: P5(7)
+QUEUE: P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) 
+
+T29:
+CPU: P5(6)
+QUEUE: P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) 
+
+T30:
+CPU: P5(5)
+QUEUE: P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) 
+
+T31:
+CPU: P5(4)
+QUEUE: P1(11) P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) 
+
+T32:
+CPU: P1(11)
+QUEUE: P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) 
+
+T33:
+CPU: P1(10)
+QUEUE: P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) 
+
+T34:
+CPU: P1(9)
+QUEUE: P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) 
+
+T35:
+CPU: P1(8)
+QUEUE: P12(4) P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) 
+
+T36:
+CPU: P12(4)
+QUEUE: P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) 
+
+T37:
+CPU: P12(3)
+QUEUE: P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) 
+
+T38:
+CPU: P12(2)
+QUEUE: P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) 
+
+T39:
+CPU: P12(1)
+QUEUE: P14(32) P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) 
+
+T40:
+CPU: P14(32)
+QUEUE: P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) 
+
+T41:
+CPU: P14(31)
+QUEUE: P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) 
+
+T42:
+CPU: P14(30)
+QUEUE: P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) 
+
+T43:
+CPU: P14(29)
+QUEUE: P7(2) P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) 
+
+T44:
+CPU: P7(2)
+QUEUE: P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) 
+
+T45:
+CPU: P7(1)
+QUEUE: P8(2) P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) 
+
+T46:
+CPU: P8(2)
+QUEUE: P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) 
+
+T47:
+CPU: P8(1)
+QUEUE: P10(7) P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) 
+
+T48:
+CPU: P10(7)
+QUEUE: P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) 
+
+T49:
+CPU: P10(6)
+QUEUE: P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) 
+
+T50:
+CPU: P10(5)
+QUEUE: P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) 
+
+T51:
+CPU: P10(4)
+QUEUE: P2(2) P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) 
+
+T52:
+CPU: P2(2)
+QUEUE: P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) P10(3) 
+
+T53:
+CPU: P2(1)
+QUEUE: P9(7) P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) P10(3) 
+
+T54:
+CPU: P9(7)
+QUEUE: P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) P10(3) 
+
+T55:
+CPU: P9(6)
+QUEUE: P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) P10(3) 
+
+T56:
+CPU: P9(5)
+QUEUE: P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) P10(3) 
+
+T57:
+CPU: P9(4)
+QUEUE: P3(2) P6(9) P5(3) P11(3) P1(7) P14(28) P10(3) 
+
+T58:
+CPU: P3(2)
+QUEUE: P6(9) P5(3) P11(3) P1(7) P14(28) P10(3) P9(3) 
+
+T59:
+CPU: P3(1)
+QUEUE: P6(9) P5(3) P11(3) P1(7) P14(28) P10(3) P9(3) 
+
+T60:
+CPU: P6(9)
+QUEUE: P5(3) P11(3) P1(7) P14(28) P10(3) P9(3) 
+
+T61:
+CPU: P6(8)
+QUEUE: P5(3) P11(3) P1(7) P14(28) P10(3) P9(3) 
+
+T62:
+CPU: P6(7)
+QUEUE: P5(3) P11(3) P1(7) P14(28) P10(3) P9(3) 
+
+T63:
+CPU: P6(6)
+QUEUE: P5(3) P11(3) P1(7) P14(28) P10(3) P9(3) 
+
+T64:
+CPU: P5(3)
+QUEUE: P11(3) P1(7) P14(28) P10(3) P9(3) P6(5) 
+
+T65:
+CPU: P5(2)
+QUEUE: P11(3) P1(7) P14(28) P10(3) P9(3) P6(5) 
+
+T66:
+CPU: P5(1)
+QUEUE: P11(3) P1(7) P14(28) P10(3) P9(3) P6(5) 
+
+T67:
+CPU: P11(3)
+QUEUE: P1(7) P14(28) P10(3) P9(3) P6(5) 
+
+T68:
+CPU: P11(2)
+QUEUE: P1(7) P14(28) P10(3) P9(3) P6(5) 
+
+T69:
+CPU: P11(1)
+QUEUE: P1(7) P14(28) P10(3) P9(3) P6(5) 
+
+T70:
+CPU: P1(7)
+QUEUE: P14(28) P10(3) P9(3) P6(5) 
+
+T71:
+CPU: P1(6)
+QUEUE: P14(28) P10(3) P9(3) P6(5) 
+
+T72:
+CPU: P1(5)
+QUEUE: P14(28) P10(3) P9(3) P6(5) 
+
+T73:
+CPU: P1(4)
+QUEUE: P14(28) P10(3) P9(3) P6(5) 
+
+T74:
+CPU: P14(28)
+QUEUE: P10(3) P9(3) P6(5) P1(3) 
+
+T75:
+CPU: P14(27)
+QUEUE: P10(3) P9(3) P6(5) P1(3) 
+
+T76:
+CPU: P14(26)
+QUEUE: P10(3) P9(3) P6(5) P1(3) 
+
+T77:
+CPU: P14(25)
+QUEUE: P10(3) P9(3) P6(5) P1(3) 
+
+T78:
+CPU: P10(3)
+QUEUE: P9(3) P6(5) P1(3) P14(24) 
+
+T79:
+CPU: P10(2)
+QUEUE: P9(3) P6(5) P1(3) P14(24) 
+
+T80:
+CPU: P10(1)
+QUEUE: P9(3) P6(5) P1(3) P14(24) 
+
+T81:
+CPU: P9(3)
+QUEUE: P6(5) P1(3) P14(24) 
+
+T82:
+CPU: P9(2)
+QUEUE: P6(5) P1(3) P14(24) 
+
+T83:
+CPU: P9(1)
+QUEUE: P6(5) P1(3) P14(24) 
+
+T84:
+CPU: P6(5)
+QUEUE: P1(3) P14(24) 
+
+T85:
+CPU: P6(4)
+QUEUE: P1(3) P14(24) 
+
+T86:
+CPU: P6(3)
+QUEUE: P1(3) P14(24) 
+
+T87:
+CPU: P6(2)
+QUEUE: P1(3) P14(24) 
+
+T88:
+CPU: P1(3)
+QUEUE: P14(24) P6(1) 
+
+T89:
+CPU: P1(2)
+QUEUE: P14(24) P6(1) 
+
+T90:
+CPU: P1(1)
+QUEUE: P14(24) P6(1) 
+
+T91:
+CPU: P14(24)
+QUEUE: P6(1) 
+
+T92:
+CPU: P14(23)
+QUEUE: P6(1) 
+
+T93:
+CPU: P14(22)
+QUEUE: P6(1) 
+
+T94:
+CPU: P14(21)
+QUEUE: P6(1) 
+
+T95:
+CPU: P6(1)
+QUEUE: P14(20) 
+
+T96:
+CPU: P14(20)
+QUEUE: <empty>
+
+T97:
+CPU: P14(19)
+QUEUE: <empty>
+
+T98:
+CPU: P14(18)
+QUEUE: <empty>
+
+T99:
+CPU: P14(17)
+QUEUE: <empty>
+
+T100:
+CPU: P14(16)
+QUEUE: <empty>
+
+T101:
+CPU: P14(15)
+QUEUE: <empty>
+
+T102:
+CPU: P14(14)
+QUEUE: <empty>
+
+T103:
+CPU: P14(13)
+QUEUE: <empty>
+
+T104:
+CPU: P14(12)
+QUEUE: <empty>
+
+T105:
+CPU: P14(11)
+QUEUE: <empty>
+
+T106:
+CPU: P14(10)
+QUEUE: <empty>
+
+T107:
+CPU: P14(9)
+QUEUE: <empty>
+
+T108:
+CPU: P14(8)
+QUEUE: <empty>
+
+T109:
+CPU: P14(7)
+QUEUE: <empty>
+
+T110:
+CPU: P14(6)
+QUEUE: <empty>
+
+T111:
+CPU: P14(5)
+QUEUE: <empty>
+
+T112:
+CPU: P14(4)
+QUEUE: <empty>
+
+T113:
+CPU: P14(3)
+QUEUE: <empty>
+
+T114:
+CPU: P14(2)
+QUEUE: <empty>
+
+T115:
+CPU: P14(1)
+QUEUE: <empty>
+
+Process P9 Wait Time: 69.00
+Process P7 Wait Time: 38.00
+Process P8 Wait Time: 31.00
+Process P6 Wait Time: 77.00
+Process P10 Wait Time: 57.00
+Process P1 Wait Time: 76.00
+Process P2 Wait Time: 46.00
+Process P3 Wait Time: 33.00
+Process P4 Wait Time: 19.00
+Process P5 Wait Time: 53.00
+Process P11 Wait Time: 32.00
+Process P12 Wait Time: 24.00
+Process P13 Wait Time: 8.00
+Process P14 Wait Time: 72.00
+Average Wait Time: 45.36
+
+~/CLionProjects/Operating-Systems/Lab 06/cmake-build-debug/bin master*
+❯ exit
+
+Script done on 2020-03-09 22:44:09-0700

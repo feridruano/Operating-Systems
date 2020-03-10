@@ -1,0 +1,350 @@
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 06
+* Date: 03/9/2020
+**/
+
+Script started on 2020-03-09 22:43:43-0700
+
+~/CLionProjects/Operating-Systems/Lab 06/cmake-build-debug/bin master*
+❯ ./cpuSchedulerL ../../input/my-SRTF.txt
+Reading input from file ../../input/my-SRTF.txts.
+
+
+ALGORITHM: SRTF
+
+PROCESSES:
+
+Name    	Entry	Burst
+P1      	  0   	 15   
+P2      	  2   	  6   
+P3      	  5   	  2   
+P4      	  6   	  3   
+P5      	  7   	  7   
+P8      	  1   	  6   
+P6      	 10   	 12   
+P9      	 24   	  2   
+P10     	 45   	  3   
+P7      	  6   	  8   
+P11     	 11   	 11   
+
+SIMULATION:
+
+T0:
+CPU: P1(15)
+QUEUE: <empty>
+
+T1:
+CPU: P8(6)
+QUEUE: P1(14) 
+
+T2:
+CPU: P8(5)
+QUEUE: P1(14) P2(6) 
+
+T3:
+CPU: P8(4)
+QUEUE: P1(14) P2(6) 
+
+T4:
+CPU: P8(3)
+QUEUE: P1(14) P2(6) 
+
+T5:
+CPU: P8(2)
+QUEUE: P1(14) P2(6) P3(2) 
+
+T6:
+CPU: P8(1)
+QUEUE: P1(14) P2(6) P3(2) P4(3) P7(8) 
+
+T7:
+CPU: P3(2)
+QUEUE: P1(14) P2(6) P4(3) P7(8) P5(7) 
+
+T8:
+CPU: P3(1)
+QUEUE: P1(14) P2(6) P4(3) P7(8) P5(7) 
+
+T9:
+CPU: P4(3)
+QUEUE: P1(14) P2(6) P7(8) P5(7) 
+
+T10:
+CPU: P4(2)
+QUEUE: P1(14) P2(6) P7(8) P5(7) P6(12) 
+
+T11:
+CPU: P4(1)
+QUEUE: P1(14) P2(6) P7(8) P5(7) P6(12) P11(11) 
+
+T12:
+CPU: P2(6)
+QUEUE: P1(14) P7(8) P5(7) P6(12) P11(11) 
+
+T13:
+CPU: P2(5)
+QUEUE: P1(14) P7(8) P5(7) P6(12) P11(11) 
+
+T14:
+CPU: P2(4)
+QUEUE: P1(14) P7(8) P5(7) P6(12) P11(11) 
+
+T15:
+CPU: P2(3)
+QUEUE: P1(14) P7(8) P5(7) P6(12) P11(11) 
+
+T16:
+CPU: P2(2)
+QUEUE: P1(14) P7(8) P5(7) P6(12) P11(11) 
+
+T17:
+CPU: P2(1)
+QUEUE: P1(14) P7(8) P5(7) P6(12) P11(11) 
+
+T18:
+CPU: P5(7)
+QUEUE: P1(14) P7(8) P6(12) P11(11) 
+
+T19:
+CPU: P5(6)
+QUEUE: P1(14) P7(8) P6(12) P11(11) 
+
+T20:
+CPU: P5(5)
+QUEUE: P1(14) P7(8) P6(12) P11(11) 
+
+T21:
+CPU: P5(4)
+QUEUE: P1(14) P7(8) P6(12) P11(11) 
+
+T22:
+CPU: P5(3)
+QUEUE: P1(14) P7(8) P6(12) P11(11) 
+
+T23:
+CPU: P5(2)
+QUEUE: P1(14) P7(8) P6(12) P11(11) 
+
+T24:
+CPU: P5(1)
+QUEUE: P1(14) P7(8) P6(12) P11(11) P9(2) 
+
+T25:
+CPU: P9(2)
+QUEUE: P1(14) P7(8) P6(12) P11(11) 
+
+T26:
+CPU: P9(1)
+QUEUE: P1(14) P7(8) P6(12) P11(11) 
+
+T27:
+CPU: P7(8)
+QUEUE: P1(14) P6(12) P11(11) 
+
+T28:
+CPU: P7(7)
+QUEUE: P1(14) P6(12) P11(11) 
+
+T29:
+CPU: P7(6)
+QUEUE: P1(14) P6(12) P11(11) 
+
+T30:
+CPU: P7(5)
+QUEUE: P1(14) P6(12) P11(11) 
+
+T31:
+CPU: P7(4)
+QUEUE: P1(14) P6(12) P11(11) 
+
+T32:
+CPU: P7(3)
+QUEUE: P1(14) P6(12) P11(11) 
+
+T33:
+CPU: P7(2)
+QUEUE: P1(14) P6(12) P11(11) 
+
+T34:
+CPU: P7(1)
+QUEUE: P1(14) P6(12) P11(11) 
+
+T35:
+CPU: P11(11)
+QUEUE: P1(14) P6(12) 
+
+T36:
+CPU: P11(10)
+QUEUE: P1(14) P6(12) 
+
+T37:
+CPU: P11(9)
+QUEUE: P1(14) P6(12) 
+
+T38:
+CPU: P11(8)
+QUEUE: P1(14) P6(12) 
+
+T39:
+CPU: P11(7)
+QUEUE: P1(14) P6(12) 
+
+T40:
+CPU: P11(6)
+QUEUE: P1(14) P6(12) 
+
+T41:
+CPU: P11(5)
+QUEUE: P1(14) P6(12) 
+
+T42:
+CPU: P11(4)
+QUEUE: P1(14) P6(12) 
+
+T43:
+CPU: P11(3)
+QUEUE: P1(14) P6(12) 
+
+T44:
+CPU: P11(2)
+QUEUE: P1(14) P6(12) 
+
+T45:
+CPU: P11(1)
+QUEUE: P1(14) P6(12) P10(3) 
+
+T46:
+CPU: P10(3)
+QUEUE: P1(14) P6(12) 
+
+T47:
+CPU: P10(2)
+QUEUE: P1(14) P6(12) 
+
+T48:
+CPU: P10(1)
+QUEUE: P1(14) P6(12) 
+
+T49:
+CPU: P6(12)
+QUEUE: P1(14) 
+
+T50:
+CPU: P6(11)
+QUEUE: P1(14) 
+
+T51:
+CPU: P6(10)
+QUEUE: P1(14) 
+
+T52:
+CPU: P6(9)
+QUEUE: P1(14) 
+
+T53:
+CPU: P6(8)
+QUEUE: P1(14) 
+
+T54:
+CPU: P6(7)
+QUEUE: P1(14) 
+
+T55:
+CPU: P6(6)
+QUEUE: P1(14) 
+
+T56:
+CPU: P6(5)
+QUEUE: P1(14) 
+
+T57:
+CPU: P6(4)
+QUEUE: P1(14) 
+
+T58:
+CPU: P6(3)
+QUEUE: P1(14) 
+
+T59:
+CPU: P6(2)
+QUEUE: P1(14) 
+
+T60:
+CPU: P6(1)
+QUEUE: P1(14) 
+
+T61:
+CPU: P1(14)
+QUEUE: <empty>
+
+T62:
+CPU: P1(13)
+QUEUE: <empty>
+
+T63:
+CPU: P1(12)
+QUEUE: <empty>
+
+T64:
+CPU: P1(11)
+QUEUE: <empty>
+
+T65:
+CPU: P1(10)
+QUEUE: <empty>
+
+T66:
+CPU: P1(9)
+QUEUE: <empty>
+
+T67:
+CPU: P1(8)
+QUEUE: <empty>
+
+T68:
+CPU: P1(7)
+QUEUE: <empty>
+
+T69:
+CPU: P1(6)
+QUEUE: <empty>
+
+T70:
+CPU: P1(5)
+QUEUE: <empty>
+
+T71:
+CPU: P1(4)
+QUEUE: <empty>
+
+T72:
+CPU: P1(3)
+QUEUE: <empty>
+
+T73:
+CPU: P1(2)
+QUEUE: <empty>
+
+T74:
+CPU: P1(1)
+QUEUE: <empty>
+
+Process P1 Wait Time: 60.00
+Process P2 Wait Time: 10.00
+Process P3 Wait Time: 2.00
+Process P4 Wait Time: 3.00
+Process P5 Wait Time: 11.00
+Process P8 Wait Time: 0.00
+Process P6 Wait Time: 39.00
+Process P9 Wait Time: 1.00
+Process P10 Wait Time: 1.00
+Process P7 Wait Time: 21.00
+Process P11 Wait Time: 24.00
+Average Wait Time: 15.64
+
+~/CLionProjects/Operating-Systems/Lab 06/cmake-build-debug/bin master*
+❯ exit
+
+Script done on 2020-03-09 22:43:52-0700
+
