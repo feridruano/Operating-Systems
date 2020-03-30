@@ -10,8 +10,7 @@
 #include <stdlib.h>
 #define SLEEP_TIME ( (rand() % 5 + 1) * 1000)
 
-// Gobal Variables
-void* philosopher(void* id);
+// Global Variables
 pthread_mutex_t monitor_mutex = PTHREAD_MUTEX_INITIALIZER; // Static Mutex
 int numOfSeats, numOfTurns;
 int* state;
@@ -36,7 +35,7 @@ void test(int id)
 	}
 }
 
-// Philosopher Picks Up a Chopstick
+// Philosopher Picks Up Chopsticks - Critical Section
 void pickup(int id)
 {
 	pthread_mutex_lock(&monitor_mutex);
@@ -47,7 +46,7 @@ void pickup(int id)
 	pthread_mutex_unlock(&monitor_mutex);
 }
 
-// Philosopher Puts Down a Chopstick
+// Philosopher Puts Down Chopsticks - Critical Section
 void putdown(int id)
 {
 	pthread_mutex_lock(&monitor_mutex);
@@ -70,10 +69,10 @@ void* philosopher(void* num)
 		pickup(id);
 		printf("Philosopher no. %d grabbed chopsticks.\n", id);
 
-
-		// Misunderstood - I assumed random number for delay
-		// sleep(SLEEP_TIME);
-		printf("Philosopher no. %d eating. Random Number: %d\n", id, rand());
+		// Generate a random number and use it in a delay in lieu of the eating time.
+		// Keeping wait time low, else program can run for a long time.
+		sleep(rand() % 5 + 1);
+		//printf("Random Number: %d\n", rand() % 5 + 1);
 
 		printf("Philosopher no. %d stopped eating.\n", id);
 		putdown(id);
@@ -88,9 +87,12 @@ void* philosopher(void* num)
 void initialization()
 {
 	state = calloc(numOfSeats, sizeof(int));
-	self = calloc(numOfSeats, sizeof(pthread_cond_t));
 	for (int i = 0; i < numOfSeats; ++i)
 		state[i] = THINKING;
+
+	self = calloc(numOfSeats, sizeof(pthread_cond_t)); // Array of PThread Conditions
+	for (long i = 0; i < numOfSeats; ++i)
+		pthread_cond_init(&self[i], NULL);
 }
 
 int main(int argc, char** argv)
@@ -114,6 +116,7 @@ int main(int argc, char** argv)
 
 	// Create Philosopher Threads
 	printf("Start a dinner for %d diners\n", numOfSeats);
+
 	for (long i = 0; i < numOfSeats; ++i)
 		pthread_create(&philosopher_tid[i], NULL, philosopher, (void*)i);
 
@@ -121,6 +124,10 @@ int main(int argc, char** argv)
 	for (long j = 0; j < numOfSeats; ++j)
 		pthread_join(philosopher_tid[j], NULL);
 	printf("Dinner is no more.\n");
+
+	// Destroy Condition Variables
+	for (long i = 0; i < numOfSeats; ++i)
+		pthread_cond_destroy(&self[i]);
 
 	// Destroy Mutex
 	pthread_mutex_destroy(&monitor_mutex);
