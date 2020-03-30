@@ -1,3 +1,9 @@
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 07
+* Date: 03/13/2020
+**/
+
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -71,7 +77,7 @@ void *philosopher(void *num)
         printf("Philsopher no. %d tries to grab chopstick %d\n", id, id);
         pthread_mutex_lock(&(chopstick[id]));
         printf("Philsopher no. %d has grabbed chopstick %d\n", id, id);
-        usleep(SLEEP_TIME * 1);
+        usleep(SLEEP_TIME * 2);
         printf("Philsopher no. %d tries to grab chopstic %d\n", id, (id + 1) % numOfSeats);
         pthread_mutex_lock(&(chopstick[(id + 1) % numOfSeats]));
         printf("Philsopher no. %d grabbed chopstick %d\n", id, (id + 1) % numOfSeats);
@@ -84,7 +90,7 @@ void *philosopher(void *num)
         printf("Philsopher no. %d stopped eating\n", id);
         pthread_mutex_unlock(&(chopstick[id]));
         printf("Philsopher no. %d has returned chopstick %d\n", id, id);
-        usleep(SLEEP_TIME * 1);
+        usleep(SLEEP_TIME * 4);
         pthread_mutex_unlock(&(chopstick[(id + 1) % numOfSeats]));
         printf("Philsopher no. %d has returned chopstick %d\n", id, (id + 1) % numOfSeats);
 

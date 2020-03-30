@@ -13,9 +13,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 set(CMAKE_BUILD_TYPE Debug)
 
-set(SOURCE_FILES philoBase.c)
+# set(SOURCE_FILES philoBase.c)
 
-add_executable(philosophers ${SOURCE_FILES})
+add_executable(philosophers philoBase.c)
+add_executable(philoWithTryLock philoWithTryLock.c)
 
 find_package(Threads)
 target_link_libraries(philosophers ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(philoWithTryLock ${CMAKE_THREAD_LIBS_INIT})
