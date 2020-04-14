@@ -59,13 +59,19 @@ int lookUp(PROC* table, int pid, int page)
 int findOldest(PROC* table)
 {
 	// TODO: Done
+	int oldestPid = 0;
 	time_t oldestTimeStamp = table->timeStamp;
 	for (int pid = 0; pid < tableSize; ++pid)
+	{
 		if (0 == oldestTimeStamp)
 			return pid;
-		else if (oldestTimeStamp > table[pid].timeStamp)
+		if (oldestTimeStamp > table[pid].timeStamp)
+		{
 			oldestTimeStamp = table[pid].timeStamp;
-	return oldestTimeStamp;
+			oldestPid = pid;
+		}
+	}
+	return oldestPid;
 }
 
 /***
