@@ -1,3 +1,9 @@
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 09
+* Date: 04/13/2020
+**/
+
 #include "../inc/inverted.h"
 
 // "hidden" symbols (i.e., not included in the .h file)
@@ -16,7 +22,7 @@ void initInverted(PROC** table, int msize, int fsize)
 {
 	// TODO: Done
 	frameSize = fsize;
-	tableSize = msize / fsize;
+	tableSize = msize / fsize; // Number of Frames = Number of Pages
 	*table = calloc(tableSize, sizeof(PROC));
 }
 

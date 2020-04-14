@@ -1,0 +1,115 @@
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 09 - Dynamic Library - Explicit
+* Date: 04/13/2020
+**/
+
+Script done, file is dynamicTypescript.txt
+
+~/CLionProjects/Operating-systems/Lab 09/Dynamic Library/src master* ⇡ 30s
+❯ cat dynamicTypescript.txt
+Script started on 2020-04-13 22:54:52-0700
+
+~/CLionProjects/Operating-systems/Lab 09/Dynamic Library/src master* ⇡
+❯ gcc -fPIC -shared -nostartfiles -o libinverted.so inverted.c
+
+~/CLionProjects/Operating-systems/Lab 09/Dynamic Library/src master* ⇡
+❯ nm libinverted.so
+0000000000201050 B __bss_start
+                 U calloc@@GLIBC_2.2.5
+                 U clock_gettime@@GLIBC_2.17
+0000000000200e90 d _DYNAMIC
+0000000000201050 D _edata
+0000000000201058 B _end
+00000000000007e3 T findOldest
+0000000000201054 B frameSize
+0000000000201000 d _GLOBAL_OFFSET_TABLE_
+00000000000009a8 r __GNU_EH_FRAME_HDR
+0000000000000640 T initInverted
+0000000000000779 T lookUp
+                 U printf@@GLIBC_2.2.5
+0000000000000868 T printInverted
+                 U puts@@GLIBC_2.2.5
+                 U __stack_chk_fail@@GLIBC_2.4
+0000000000201050 B tableSize
+0000000000000695 T translate
+
+~/CLionProjects/Operating-systems/Lab 09/Dynamic Library/src master* ⇡
+❯ gcc -rdynamic -o testInvertedExplicit testInvertedExplicit.c -L. -linverted -ldl
+
+~/CLionProjects/Operating-systems/Lab 09/Dynamic Library/src master* ⇡
+❯ ./testInvertedExplicit 1024 512 5 2
+=================================
+SIMULATION PARAMETERS
+=================================
+Memory size: 1024
+Frame size: 512
+Number of processes: 5
+Upper bound on page numbers: 2
+Number of frames (computed): 2
+=================================
+filling the table chronologically
+=================================
+-------------------------------------
+        INVERTED TABLE CONTENT
+-------------------------------------
+| PID | PAGE |       TIMESTAMP
+-------------------------------------
+|   4 |    0 |  1586843719575014487 |
+|   2 |    0 |  1586843719575017096 |
+==================================
+translate with no page replacement
+==================================
+translate(4, 0, 178) = 0
+CORRECT
+translate(2, 0, 208) = 106496
+CORRECT
+-------------------------------------
+        INVERTED TABLE CONTENT
+-------------------------------------
+| PID | PAGE |       TIMESTAMP
+-------------------------------------
+|   4 |    0 |  1586843719575014487 |
+|   2 |    0 |  1586843719575017096 |
+======================================
+translate with forced page replacement
+======================================
+translate(9, 2, 362) = 0
+ERROR: slot #0 has not been replaced as expected
+translate(5, 2, 123) = 62976
+CORRECT
+-------------------------------------
+        INVERTED TABLE CONTENT
+-------------------------------------
+| PID | PAGE |       TIMESTAMP
+-------------------------------------
+|   9 |    2 |  1586843719575176440 |
+|   5 |    2 |  1586843719575188117 |
+===========================================
+translate undeterministically (stress test)
+===========================================
+====================================
+translate(10, 2, 11) = 0
+====================================
+-------------------------------------
+        INVERTED TABLE CONTENT
+-------------------------------------
+| PID | PAGE |       TIMESTAMP
+-------------------------------------
+|  10 |    2 |  1586843719575273168 |
+|   5 |    2 |  1586843719575188117 |
+====================================
+translate(8, 2, 379) = 194048
+====================================
+-------------------------------------
+        INVERTED TABLE CONTENT
+-------------------------------------
+| PID | PAGE |       TIMESTAMP
+-------------------------------------
+|  10 |    2 |  1586843719575273168 |
+|   8 |    2 |  1586843719575357698 |
+
+~/CLionProjects/Operating-systems/Lab 09/Dynamic Library/src master* ⇡
+❯ exit
+
+Script done on 2020-04-13 22:55:22-0700

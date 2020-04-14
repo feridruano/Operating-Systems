@@ -1,3 +1,7 @@
+# Name: Ferid Ruano
+# Lab/task: Lab 09 - Static Library
+# Date: 04/13/2020
+
 cmake_minimum_required(VERSION 3.15)
 
 project(inverted)
@@ -15,7 +19,7 @@ set(CMAKE_BUILD_TYPE Debug)
 
 include_directories(inc)
 
-add_executable(inverted src/inverted.c src/testInverted.c)
+add_library(inverted STATIC inverted.c)
 
-
-
+add_executable(src/testInverted src/testInverted.c)
+target_link_libraries(testStatLib inverted)

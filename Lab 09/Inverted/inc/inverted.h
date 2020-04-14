@@ -1,3 +1,9 @@
+/**
+* Name: Ferid Ruano
+* Lab/task: Lab 09
+* Date: 04/13/2020
+**/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
